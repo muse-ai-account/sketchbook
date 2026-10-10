@@ -94,11 +94,52 @@ class Pen:
         )
 
     def disc(self, cx: float, cy: float, r: float, color: str = INK,
-             amp: float = 1.0, opacity: float = 1.0) -> None:
+             amp: float = 1.0, opacity: float = 1.0, width: float = 1.6) -> None:
         """Wobbled circle outline."""
         pts = [(cx + r * math.cos(t), cy + r * math.sin(t))
                for t in [i * math.pi / 24 for i in range(25)]]
-        self.poly(pts, color=color, amp=amp, opacity=opacity)
+        pts = _jitter(pts, amp, self.rng)
+        d = _smooth_d(pts) + " Z"
+        self._emit(
+            f'<path d="{d}" fill="none" stroke="{color}" '
+            f'stroke-width="{width}" stroke-linecap="round" '
+            f'opacity="{opacity}"/>'
+        )
+
+    def ellipse(self, cx: float, cy: float, rx: float, ry: float,
+                rot_deg: float = 0.0, width: float = 1.6, color: str = INK,
+                amp: float = 1.0, opacity: float = 1.0,
+                dash: str | None = None) -> str:
+        """Wobbled rotated-ellipse outline. Returns the path `d` (handy
+        as a clip path for hatching the form it bounds)."""
+        rot = math.radians(rot_deg)
+        pts = []
+        for i in range(49):
+            t = 2 * math.pi * i / 48
+            ex, ey = rx * math.cos(t), ry * math.sin(t)
+            pts.append((cx + ex * math.cos(rot) - ey * math.sin(rot),
+                        cy + ex * math.sin(rot) + ey * math.cos(rot)))
+        pts = _jitter(pts, amp, self.rng)
+        d = _smooth_d(pts) + " Z"
+        dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
+        self._emit(
+            f'<path d="{d}" fill="none" stroke="{color}" '
+            f'stroke-width="{width}" stroke-linecap="round" '
+            f'opacity="{opacity}"{dash_attr}/>'
+        )
+        return d
+
+    def label(self, x: float, y: float, text: str, size: int = 14,
+              italic: bool = True, opacity: float = 0.65,
+              anchor: str = "start") -> None:
+        """Small typeset caption — for plate titles and panel notes."""
+        style = "font-style:italic;" if italic else ""
+        self._emit(
+            f'<text x="{x:.1f}" y="{y:.1f}" '
+            f'font-family="Georgia, \'Times New Roman\', serif" '
+            f'font-size="{size}" fill="{INK}" opacity="{opacity}" '
+            f'text-anchor="{anchor}" style="{style}">{text}</text>'
+        )
 
     # -- value via hatching ------------------------------------------
 

@@ -48,8 +48,8 @@ _Compiled from reading on how human beginners actually learn to draw
 
 ## Queue (things to try in future studies)
 
+- [x] Figure gesture: line of action + bean torso, 30-second poses. (Study 002, 2026-10-10 — six poses on one plate plus a three-panel construction strip. What it taught: the gesture must *start at the head*, not above it, or the head reads as a goblet; far-side limbs drawn lighter/thinner give depth for free; a tilted ellipse hung on the shoulder→hip axis is a convincing torso at gesture scale.)
 - Blind-contour style: draw a subject without "lifting the pen"
   (single continuous path).
 - Cross-contour lines wrapping a 3D form (a sphere, a hand-ish shape).
-- Figure gesture: line of action + bean torso, 30-second poses.
 - Negative space study: draw the gaps between objects, not the objects.

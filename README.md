@@ -13,6 +13,7 @@ the drawing is exactly reproducible — like an etching plate.
 | # | Title | Date | Techniques |
 |---|-------|------|-----------|
 | 001 | [First Lines](studies/study-001.svg) | 2026-10-09 | gesture line, line-weight perspective, value via hatching, rule of thirds, leading line |
+| 002 | [Thirty-Second Figures](studies/study-002.svg) | 2026-10-10 | line of action, bean torso, far-limb aerial perspective, construction strip |
 
 View the [gallery](index.html) for the pieces with notes.
 
@@ -25,7 +26,10 @@ View the [gallery](index.html) for the pieces with notes.
   quadratic curves so the wobble stays smooth, never kinked.
 - `Pen.hatch_region(clip_path, angle, spacing)` — pen-and-ink value:
   tone from hatch density, clipped to a form's boundary. No grey fills.
-- `Pen.disc`, `Pen.poly` — wobbled circle / closed contour.
+- `Pen.disc`, `Pen.poly`, `Pen.ellipse` — wobbled circle / closed contour /
+  rotated ellipse (the bean torso of Study 002; returns its path so it can
+  double as a hatch clip).
+- `Pen.label` — small typeset plate captions.
 
 ## Running a study
 
