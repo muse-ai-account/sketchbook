@@ -129,6 +129,135 @@ class Pen:
         )
         return d
 
+    def blind_path(self, outline, width: float = 2.0, color: str = INK,
+                   lag_base: float = 7.0, lag_wander: float = 5.0,
+                   tremor: float = 1.1, drift: float = 2.6,
+                   overshoot: float = 16.0, corner_deg: float = 38.0,
+                   hesitate: int = 3, hesitate_len: int = 16,
+                   seed: int | None = None) -> list[tuple[float, float]]:
+        """Blind-contour pass: the hand follows the eye's path with lag.
+
+        `outline` is the intended contour (the eye's path), an ordered,
+        reasonably dense polyline. The drawn hand position is
+        ``outline[i - lag_i]``: the eye moves ahead while the hand lags,
+        and the lag wanders slowly (sometimes the hand almost catches up,
+        sometimes it falls far behind — so corners get rounded and detail
+        gets lost, exactly like the real exercise).
+
+        Sharp corners produce overshoot hooks: the hand keeps going past
+        the corner along the incoming direction, then hooks back — the
+        signature blind-contour tell. A few seeded hesitation spots leave
+        dense tremor clusters where the eye lingered. Deterministic for a
+        given seed (defaults to the pen's seed stream).
+        Returns a list of (x, y, walk_i) triples: the drawn points plus the
+        walk index of the eye's path each drawn point belongs to, so a
+        study can diagram the lag (rubber bands between eye and hand).
+        """
+        pts = [(float(x), float(y)) for x, y in outline]
+        n = len(pts)
+        if n < 8:
+            return []
+        rng = mulberry(self.rng.randrange(1 << 30) if seed is None else seed)
+
+        # -- locate sharp corners in the eye's path --------------------
+        def turn_at(i: int) -> float:
+            x0, y0 = pts[max(0, i - 2)]
+            x1, y1 = pts[i]
+            x2, y2 = pts[min(n - 1, i + 2)]
+            ax, ay = x1 - x0, y1 - y0
+            bx, by = x2 - x1, y2 - y1
+            la, lb = math.hypot(ax, ay), math.hypot(bx, by)
+            if la < 1e-6 or lb < 1e-6:
+                return 0.0
+            cos_a = max(-1.0, min(1.0, (ax * bx + ay * by) / (la * lb)))
+            return math.degrees(math.acos(cos_a))
+
+        corners = [i for i in range(3, n - 3) if turn_at(i) > corner_deg]
+        # keep corners apart so hooks don't pile up
+        kept: list[int] = []
+        for c in corners:
+            if not kept or c - kept[-1] > 14:
+                kept.append(c)
+        corners = kept
+
+        # -- slow wander phases for lag, drift, and the eye's own path --
+        p1, p2 = rng.uniform(0, 2 * math.pi), rng.uniform(0, 2 * math.pi)
+        q1, q2 = rng.uniform(0, 2 * math.pi), rng.uniform(0, 2 * math.pi)
+
+        def sample(idx: float) -> tuple[float, float]:
+            i0 = max(0, min(n - 2, int(math.floor(idx))))
+            f = max(0.0, min(1.0, idx - i0))
+            x0, y0 = pts[i0]
+            x1, y1 = pts[i0 + 1]
+            return (x0 + (x1 - x0) * f, y0 + (y1 - y0) * f)
+
+        # hesitation spots, chosen up front on walk indices away from corners
+        hspots: set[int] = set()
+        for _ in range(hesitate):
+            for _try in range(20):
+                h = rng.randrange(n // 8, 7 * n // 8)
+                if not any(abs(h - c) < 20 for c in corners):
+                    hspots.add(h)
+                    break
+
+        drawn: list[tuple[float, float, int]] = []
+        crossed: set[int] = set()
+        for i in range(n):
+            t = i / n
+            lag = lag_base + lag_wander * (
+                0.6 * math.sin(2 * math.pi * t * 1.5 + p1)
+                + 0.4 * math.sin(2 * math.pi * t * 3.0 + p2))
+            lag = max(1.5, lag)
+            j = max(0.0, i - lag)
+            x, y = sample(j)
+            # tremor (fast) + drift (slow, the "feeling the edge" wobble)
+            x += rng.uniform(-tremor, tremor) + drift * math.sin(
+                2 * math.pi * t * 2.0 + q1)
+            y += rng.uniform(-tremor, tremor) + drift * 0.7 * math.sin(
+                2 * math.pi * t * 2.7 + q2)
+            drawn.append((x, y, i))
+            # hesitation: the eye lingers, the hand trembles in place
+            if i in hspots:
+                for _h in range(hesitate_len):
+                    drawn.append((x + rng.uniform(-tremor * 1.8, tremor * 1.8),
+                                  y + rng.uniform(-tremor * 1.8, tremor * 1.8), i))
+
+            # corner overshoot: when the hand crosses a corner, keep going
+            # along the incoming direction, then hook back.
+            for c in corners:
+                if c in crossed:
+                    continue
+                if j >= c - 0.5:
+                    crossed.add(c)
+                    cx, cy, _ = drawn[-1]
+                    px, py = pts[c]
+                    # incoming direction at the corner (eye's path)
+                    ax, ay = pts[c][0] - pts[c - 3][0], pts[c][1] - pts[c - 3][1]
+                    la = math.hypot(ax, ay) or 1.0
+                    ax, ay = ax / la, ay / la
+                    turn = turn_at(c)
+                    hook = overshoot * (0.5 + turn / 90.0)
+                    steps = 7
+                    for s in range(1, steps + 1):
+                        f = s / steps
+                        drawn.append((cx + ax * hook * f,
+                                      cy + ay * hook * f, i))
+                    # hook back toward where the eye's path went
+                    tx, ty = sample(c + 2)
+                    for s in range(1, steps + 1):
+                        f = s / steps
+                        ease = f * f * (3 - 2 * f)
+                        drawn.append((cx + ax * hook * (1 - ease) + (tx - cx - ax * hook) * ease,
+                                      cy + ay * hook * (1 - ease) + (ty - cy - ay * hook) * ease, i))
+
+        d = _smooth_d([(x, y) for x, y, _ in drawn])
+        self._emit(
+            f'<path d="{d}" fill="none" stroke="{color}" '
+            f'stroke-width="{width}" stroke-linecap="round" '
+            f'stroke-linejoin="round"/>'
+        )
+        return drawn
+
     def label(self, x: float, y: float, text: str, size: int = 14,
               italic: bool = True, opacity: float = 0.65,
               anchor: str = "start") -> None:

@@ -14,6 +14,7 @@ the drawing is exactly reproducible — like an etching plate.
 |---|-------|------|-----------|
 | 001 | [First Lines](studies/study-001.svg) | 2026-10-09 | gesture line, line-weight perspective, value via hatching, rule of thirds, leading line |
 | 002 | [Thirty-Second Figures](studies/study-002.svg) | 2026-10-10 | line of action, bean torso, far-limb aerial perspective, construction strip |
+| 003 | [Blind Contour: the lagging hand](studies/study-003.svg) | 2026-10-11 | blind contour, eye-hand lag model, corner overshoot hooks, hesitation clusters, travel lines |
 
 View the [gallery](index.html) for the pieces with notes.
 
@@ -30,6 +31,10 @@ View the [gallery](index.html) for the pieces with notes.
   rotated ellipse (the bean torso of Study 002; returns its path so it can
   double as a hatch clip).
 - `Pen.label` — small typeset plate captions.
+- `Pen.blind_path(outline, ...)` — blind-contour pass (Study 003): the hand
+  draws `outline[i - lag_i]` with slowly wandering lag, overshoot hooks at
+  sharp corners, and tremor clusters where the eye hesitates. Returns drawn
+  points tagged with their eye-path index for diagramming the lag.
 
 ## Running a study
 
