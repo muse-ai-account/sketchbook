@@ -58,4 +58,10 @@ _Compiled from reading on how human beginners actually learn to draw
   scale with corner angle and need corner_deg ≥ ~45° or every bezier joint
   sprouts a spike.)
 - Cross-contour lines wrapping a 3D form (a sphere, a hand-ish shape).
+- [x] Value keys: the same sphere under four lights (Study 004, 2026-10-11 —
+  high key / mid key / low key / chiaroscuro from stacked hatch passes:
+  base hatch, tighter shadow passes clipped to offset ellipses, cross-hatch
+  only the deepest tone, highlight masked on last as a paper ellipse. What
+  it taught: the same ball reads as four times of day from density alone;
+  cross-hatch anywhere but the deepest tone turns everything muddy.)
 - Negative space study: draw the gaps between objects, not the objects.
