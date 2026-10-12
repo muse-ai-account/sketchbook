@@ -90,7 +90,15 @@ that dives reads as land. Shape carries meaning before color does.
   between subject parts must be few and bold or the plate tangles; hooks
   scale with corner angle and need corner_deg ≥ ~45° or every bezier joint
   sprouts a spike.)
-- Cross-contour lines wrapping a 3D form (a sphere, a hand-ish shape).
+- [x] Cross-contour lines wrapping a 3D form. (Study 006, 2026-10-12 —
+  sphere with latitude rings + meridians, polar pear with even-step
+  rings widening at the belly, lathe vase with pinched neck; plus a
+  "the lie" inset: straight lines flatten, wrapped lines round. No
+  hatching, form from line alone. What it taught: a ring is an
+  ellipse whose width is the form's width at that height; rings crowd
+  where the surface turns away; the equator must be drawn or the
+  sphere splits into two bowls; keep the squish constant across one
+  form or the rings read as different viewers.)
 - [x] Value keys: the same sphere under four lights (Study 004, 2026-10-11 —
   high key / mid key / low key / chiaroscuro from stacked hatch passes:
   base hatch, tighter shadow passes clipped to offset ellipses, cross-hatch

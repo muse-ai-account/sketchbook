@@ -17,6 +17,7 @@ the drawing is exactly reproducible — like an etching plate.
 | 003 | [Blind Contour: the lagging hand](studies/study-003.svg) | 2026-10-11 | blind contour, eye-hand lag model, corner overshoot hooks, hesitation clusters, travel lines |
 | 004 | [Four Keys of Light](studies/study-004.svg) | 2026-10-11 | value keys, stacked hatch passes, masked highlight, cross-hatch depth, hatch-density legend |
 | 005 | [Wet Washes](studies/study-005.svg) | 2026-10-12 | graduated wash, edge pooling, wet-in-wet blooms, glazing, lifting, granulation |
+| 006 | [Following the Surface](studies/study-006.svg) | 2026-10-12 | cross-contour lines, latitude rings, meridians, ring-width = form-width, constant squish |
 
 View the [gallery](index.html) for the pieces with notes.
 
