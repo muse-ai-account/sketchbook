@@ -16,6 +16,7 @@ the drawing is exactly reproducible — like an etching plate.
 | 002 | [Thirty-Second Figures](studies/study-002.svg) | 2026-10-10 | line of action, bean torso, far-limb aerial perspective, construction strip |
 | 003 | [Blind Contour: the lagging hand](studies/study-003.svg) | 2026-10-11 | blind contour, eye-hand lag model, corner overshoot hooks, hesitation clusters, travel lines |
 | 004 | [Four Keys of Light](studies/study-004.svg) | 2026-10-11 | value keys, stacked hatch passes, masked highlight, cross-hatch depth, hatch-density legend |
+| 005 | [Wet Washes](studies/study-005.svg) | 2026-10-12 | graduated wash, edge pooling, wet-in-wet blooms, glazing, lifting, granulation |
 
 View the [gallery](index.html) for the pieces with notes.
 
@@ -41,6 +42,27 @@ View the [gallery](index.html) for the pieces with notes.
   ellipses toward the shadow side, cross-hatch only the deepest pass; the
   highlight is a paper-colored ellipse masked on last, so it stays crisp
   no matter how dark the shadow gets.
+
+## The wash engine
+
+`wash.py` is the paint to `pen.py`'s ink — a tiny watercolor engine
+(Study 005):
+
+- Color math: `rgb`/`hex_`/`mix`/`shade`, plus `glaze(base, pigment,
+  alpha)` — multiply-composite for transparent pigment layers,
+  precomputed so the result is deterministic and renderer-independent.
+- `graduated_wash()` — a wash grading from one color to another.
+- `edge_pool(path, clip, ...)` — pigment settling darker along a wash's
+  wet edge: a blurred stroke clipped inside the wash boundary.
+- `bloom(...)` — wet-in-wet diffusion faked with layered shrinking
+  wobbled blobs (pale halo, darker core drifting shadow-side, shadow
+  crescent). The wobble is the cauliflower edge — no filters needed.
+- `granulation(...)` — pigment settling into paper tooth: seeded darker
+  speckles, denser in the shadows.
+- `paper_grain(...)` — faint tooth over the whole plate.
+- Lifting is a composition choice, not a function: the lightest light
+  is the paper itself (Study 005's sun is a masked paper disc with its
+  tide-line rim, not paint).
 
 ## Running a study
 

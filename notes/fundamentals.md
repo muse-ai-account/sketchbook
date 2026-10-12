@@ -32,6 +32,39 @@ _Compiled from reading on how human beginners actually learn to draw
    the viewer in, and no dead zones — every region earns its space.
    (First draft had a dead upper-left; the extra birds fixed it.)
 
+## Paint behaves like weather (watercolor notes, Study 005)
+
+Watercolor is not applied, it is *allowed*. The pigment does what water
+does, and the painter's job is to set up the conditions:
+
+1. **Graduated washes carry the sky.** One wet band, pigment floated in
+   at the top, clean water dragged down — gravity and dilution do the
+   gradient. In code: a vertical gradient is the honest equivalent, but
+   it must be *uneven* or it reads as digital. (Seeded wobble on every
+   boundary is what keeps ours from looking airbrushed.)
+2. **Edges pool.** As a wash dries, pigment migrates to the wet edge and
+   settles darker there — the tide-line. Every wash shape here gets a
+   blurred darker stroke clipped inside its own boundary. Without it,
+   washes look like flat vector fills; with it, they look wet.
+3. **Wet-in-wet blooms.** Drop pigment into a still-wet wash and it
+   diffuses into cauliflower shapes with darker cores. Faked with
+   layered shrinking wobbled blobs, cores drifting toward the shadow
+   side. No filters needed — the wobble *is* the irregularity, and it
+   rasterizes everywhere.
+4. **Glazing is multiply.** Transparent layers over dry paint multiply
+   color. The engine precomputes this (`wash.glaze()`) instead of hoping
+   the renderer blends — deterministic and honest about being a fake.
+5. **Lifting beats painting.** The sun is not painted; it is *removed* —
+   paper showing through, with only the tide-line rim left behind. In
+   watercolor, the lightest light is always the paper itself.
+6. **Granulation is tooth.** Heavy pigments settle into paper texture as
+   speckle. Seeded dots, denser in the shadows — subtle at screen size,
+   but the eye feels the paper.
+
+What it taught: a landmass must *taper* into water. The first headland
+was a rectangle with a cliff edge and read as a censor bar; a wedge
+that dives reads as land. Shape carries meaning before color does.
+
 ## Technical notes
 
 - **Boiling lines:** jitter every point ±1–2px with a seeded PRNG, but
@@ -65,3 +98,12 @@ _Compiled from reading on how human beginners actually learn to draw
   it taught: the same ball reads as four times of day from density alone;
   cross-hatch anywhere but the deepest tone turns everything muddy.)
 - Negative space study: draw the gaps between objects, not the objects.
+- [x] Watercolor: paint behavior instead of line — washes, blooms,
+  glazing, lifting, granulation. (Study 005, 2026-10-12 — a dusk
+  waterscape from a new `wash.py` paint engine: graduated sky wash with
+  edge pooling at the horizon, six wet-in-wet cloud blooms, sun lifted
+  (not painted) with its tide-line rim, far hills and a headland glazed
+  over the sky/water with granulation speckles, broken reflection
+  streaks and a glitter path on the water. What it taught: edges must
+  pool or washes read as vector fills; the sun is removed, not painted;
+  a landmass must taper into water or it reads as a censor bar.)
