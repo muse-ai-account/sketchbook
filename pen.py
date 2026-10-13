@@ -360,6 +360,60 @@ class Pen:
             + "".join(lines) + "</g>"
         )
 
+    def edge_life(self, pts, presence, width: float = 2.0, color: str = INK,
+                  amp: float = 1.4, chunk: int = 5) -> None:
+        """Lost-and-found contour: the pen's ink fades in and out along
+        `pts` according to `presence` — a list of 0..1 values, one per
+        point, or a callable mapping t in 0..1 to a 0..1 presence.
+
+        Each short chunk of the path gets width and opacity scaled by its
+        presence: high presence = found edge (bold, full ink), low
+        presence = lost edge (hairline, ghosted), near-zero = nothing
+        drawn — the eye closes the gap. Overlapping chunks with round
+        caps keep neighboring sections merging like wet ink.
+        Deterministic for a given seed.
+        """
+        pts = [(float(x), float(y)) for x, y in pts]
+        n = len(pts)
+        if n < 2:
+            return
+        if callable(presence):
+            pres = [max(0.0, min(1.0, float(presence(i / max(1, n - 1)))))
+                    for i in range(n)]
+        else:
+            pres = [max(0.0, min(1.0, float(p))) for p in presence]
+            if len(pres) < n:
+                pres = pres + [pres[-1]] * (n - len(pres))
+        runs = []
+        run = []
+        for i in range(n):
+            if pres[i] > 0.06:
+                run.append(i)
+            elif run:
+                runs.append(run)
+                run = []
+        if run:
+            runs.append(run)
+        for run in runs:
+            if len(run) < 2:
+                continue
+            j = 0
+            while j < len(run) - 1:
+                k = min(j + chunk, len(run) - 1)
+                idx = run[j:k + 1]
+                p = sum(pres[i] for i in idx) / len(idx)
+                seg = [pts[i] for i in idx]
+                # extend each chunk by one neighbor point so the curve
+                # keeps its direction across chunk boundaries
+                if j > 0:
+                    seg = [pts[run[j - 1]]] + seg
+                if k < len(run) - 1:
+                    seg = seg + [pts[run[k + 1]]]
+                w = width * (0.45 + 0.75 * p)
+                self.stroke(seg, width=w, color=color, amp=amp,
+                            opacity=min(1.0, 0.25 + 0.95 * p))
+                j = k
+
     def save(self, path: str) -> None:
         svg = (
             f'<svg xmlns="http://www.w3.org/2000/svg" '

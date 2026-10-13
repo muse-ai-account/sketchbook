@@ -19,6 +19,7 @@ the drawing is exactly reproducible — like an etching plate.
 | 005 | [Wet Washes](studies/study-005.svg) | 2026-10-12 | graduated wash, edge pooling, wet-in-wet blooms, glazing, lifting, granulation |
 | 006 | [Following the Surface](studies/study-006.svg) | 2026-10-12 | cross-contour lines, latitude rings, meridians, ring-width = form-width, constant squish |
 | 007 | [The Gaps, Not the Things](studies/study-007.svg) | 2026-10-13 | negative space, evenodd hatch holes, Rubin's vase, paper-cut leaves, keyhole triptych |
+| 008 | [The Edges You Don't Draw](studies/study-008.svg) | 2026-10-13 | lost and found edges, edge_life presence function, eye-closure gaps, presence meter strips, mug/bottle/pear triptych |
 
 View the [gallery](index.html) for the pieces with notes.
 
@@ -46,6 +47,11 @@ View the [gallery](index.html) for the pieces with notes.
   clip-rule="evenodd" joins a wobbled field boundary with the hole
   paths, so hatching punches cleanly around un-drawn figures — draw
   the ground, not the figure.
+- `Pen.edge_life(pts, presence, width)` — lost-and-found contour
+  (Study 008): `presence` is a per-point 0..1 list or a t→0..1
+  callable; the path is chunked into subpaths whose width and opacity
+  breathe along the walk — found edges bold, lost edges hairline or
+  gone, round caps keeping the chunks merged like wet ink.
 - Study 004's idiom (no new engine method needed): stacked hatch passes —
   base hatch over the whole form, tighter passes clipped to offset shadow
   ellipses toward the shadow side, cross-hatch only the deepest pass; the

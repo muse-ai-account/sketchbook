@@ -125,3 +125,21 @@ that dives reads as land. Shape carries meaning before color does.
   streaks and a glitter path on the water. What it taught: edges must
   pool or washes read as vector fills; the sun is removed, not painted;
   a landmass must taper into water or it reads as a censor bar.)
+- [x] Lost and found edges: contour presence follows turning and light.
+  (Study 008, 2026-10-13 — new `Pen.edge_life()`: presence(t) = base +
+  gain*turn(t) − light-dissolve; the same mug twice (constant vs living
+  contour), a bottle with five eye-closure gaps, a pear whose lit
+  shoulder dissolves while hatch + cross-rings carry the form. What it
+  taught: a contour is a rumor of an edge — loud where the form turns
+  into shadow, silent where light dissolves it; the eye finishes the
+  drawing itself. Ink every edge equally and the form goes flat. Floor
+  calibration matters: hairlines must stay visible or the drawing reads
+  as unfinished, not lost.)
+- [ ] Hands: the hardest subject — one hand five ways (palm, fist,
+  pointing, holding, relaxed), construction from the mitten first.
+- [ ] Texture in ink: bark, water, cloth — the same pen, three
+  different material languages (short choppy strokes vs long flow vs
+  broken stipple).
+- [ ] One-point perspective: a street or corridor with figures
+  shrinking on the rails — construction lines left visible, the way
+  students are told to leave them.
