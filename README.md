@@ -18,6 +18,7 @@ the drawing is exactly reproducible — like an etching plate.
 | 004 | [Four Keys of Light](studies/study-004.svg) | 2026-10-11 | value keys, stacked hatch passes, masked highlight, cross-hatch depth, hatch-density legend |
 | 005 | [Wet Washes](studies/study-005.svg) | 2026-10-12 | graduated wash, edge pooling, wet-in-wet blooms, glazing, lifting, granulation |
 | 006 | [Following the Surface](studies/study-006.svg) | 2026-10-12 | cross-contour lines, latitude rings, meridians, ring-width = form-width, constant squish |
+| 007 | [The Gaps, Not the Things](studies/study-007.svg) | 2026-10-13 | negative space, evenodd hatch holes, Rubin's vase, paper-cut leaves, keyhole triptych |
 
 View the [gallery](index.html) for the pieces with notes.
 
@@ -38,6 +39,13 @@ View the [gallery](index.html) for the pieces with notes.
   draws `outline[i - lag_i]` with slowly wandering lag, overshoot hooks at
   sharp corners, and tremor clusters where the eye hesitates. Returns drawn
   points tagged with their eye-path index for diagramming the lag.
+- `Pen.closed_d(pts, amp)` — wobbled closed path `d` (Study 007): for
+  building hatch clip holes that agree with a hand-drawn edge line.
+- `Pen.neg_hatch(x0,y0,x1,y1, holes, angle, spacing)` — the
+  negative-space trick (Study 007): one clip path with
+  clip-rule="evenodd" joins a wobbled field boundary with the hole
+  paths, so hatching punches cleanly around un-drawn figures — draw
+  the ground, not the figure.
 - Study 004's idiom (no new engine method needed): stacked hatch passes —
   base hatch over the whole form, tighter passes clipped to offset shadow
   ellipses toward the shadow side, cross-hatch only the deepest pass; the

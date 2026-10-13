@@ -106,6 +106,16 @@ that dives reads as land. Shape carries meaning before color does.
   it taught: the same ball reads as four times of day from density alone;
   cross-hatch anywhere but the deepest tone turns everything muddy.)
 - Negative space study: draw the gaps between objects, not the objects.
+- [x] Negative space: draw the gaps between objects, not the objects.
+  (Study 007, 2026-10-13 — Rubin's vase as the un-hatched gap in a
+  cross-hatched field; ten paper-cut leaves punched out of a hatched
+  sky (ink draws only the sky between them), one outlined in vermilion
+  as the odd one out; a keyhole three ways — outline only, ground
+  only, both. What it taught: the eye finds an edge whether or not the
+  pen touches it; holes must be fully contained in the field or they
+  read as mistakes; a leaf is a pointed ellipse — too wide and it reads
+  as a blob; one outlined figure among un-drawn ones teaches more than
+  any legend.)
 - [x] Watercolor: paint behavior instead of line — washes, blooms,
   glazing, lifting, granulation. (Study 005, 2026-10-12 — a dusk
   waterscape from a new `wash.py` paint engine: graduated sky wash with

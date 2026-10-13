@@ -270,6 +270,61 @@ class Pen:
             f'text-anchor="{anchor}" style="{style}">{text}</text>'
         )
 
+    def closed_d(self, pts, amp: float = 1.0) -> str:
+        """Wobbled closed path `d` through `pts`.
+
+        Handy for building hatch clip holes: the same jitter/smoothing
+        as a drawn stroke, so a punched hole and its hand-drawn edge
+        line agree to within a pixel or two."""
+        pts = _jitter(pts, amp, self.rng)
+        return _smooth_d(pts) + " Z"
+
+    def neg_hatch(self, x0: float, y0: float, x1: float, y1: float,
+                  holes: list[str], angle_deg: float, spacing: float,
+                  width: float = 1.0, color: str = INK,
+                  opacity: float = 0.55, edge_amp: float = 2.2) -> None:
+        """Hatch the field (x0,y0)-(x1,y1), leaving `holes` as paper.
+
+        The negative-space trick: the field boundary and every hole are
+        joined into ONE clip path with clip-rule="evenodd", so the holes
+        punch cleanly through the hatching — draw the ground, not the
+        figure. The field edge itself is wobbled (edge_amp) so the toned
+        area reads as a hand-drawn boundary, not a vector rectangle.
+        `holes` are closed path `d` strings (see `closed_d`).
+        """
+        self._clip_n += 1
+        cid = f"clip{self._clip_n}"
+        edge = _smooth_d(_jitter(
+            [(x0, y0), (x1, y0), (x1, y1), (x0, y1)], edge_amp, self.rng)
+        ) + " Z"
+        d = edge + " " + " ".join(holes)
+        self.defs.append(
+            f'<clipPath id="{cid}"><path d="{d}" '
+            f'clip-rule="evenodd"/></clipPath>')
+        ang = math.radians(angle_deg)
+        dx, dy = math.cos(ang), math.sin(ang)
+        nx, ny = -dy, dx
+        cx0, cy0 = (x0 + x1) / 2, (y0 + y1) / 2
+        diag = math.hypot(x1 - x0, y1 - y0)
+        lines = []
+        off = -diag
+        while off < diag:
+            cx, cy = cx0 + nx * off, cy0 + ny * off
+            xa, ya = cx - dx * diag, cy - dy * diag
+            xb, yb = cx + dx * diag, cy + dy * diag
+            # wobble the endpoints so hatches don't look ruled
+            j = lambda v: v + self.rng.uniform(-1.2, 1.2)
+            lines.append(
+                f'<line x1="{j(xa):.1f}" y1="{j(ya):.1f}" '
+                f'x2="{j(xb):.1f}" y2="{j(yb):.1f}" '
+                f'stroke="{color}" stroke-width="{width}"/>'
+            )
+            off += spacing
+        self._emit(
+            f'<g clip-path="url(#{cid})" opacity="{opacity}">'
+            + "".join(lines) + "</g>"
+        )
+
     # -- value via hatching ------------------------------------------
 
     def hatch_region(self, clip_d: str, angle_deg: float, spacing: float,
