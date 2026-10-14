@@ -20,6 +20,7 @@ the drawing is exactly reproducible — like an etching plate.
 | 006 | [Following the Surface](studies/study-006.svg) | 2026-10-12 | cross-contour lines, latitude rings, meridians, ring-width = form-width, constant squish |
 | 007 | [The Gaps, Not the Things](studies/study-007.svg) | 2026-10-13 | negative space, evenodd hatch holes, Rubin's vase, paper-cut leaves, keyhole triptych |
 | 008 | [The Edges You Don't Draw](studies/study-008.svg) | 2026-10-13 | lost and found edges, edge_life presence function, eye-closure gaps, presence meter strips, mug/bottle/pear triptych |
+| 009 | [The Hardest Subject](studies/study-009.svg) | 2026-10-14 | hands one hand five ways, mitten construction, knuckle arc, tapered finger tubes, curl as foreshortening, side-view grip |
 
 View the [gallery](index.html) for the pieces with notes.
 

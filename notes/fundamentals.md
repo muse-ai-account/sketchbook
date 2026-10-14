@@ -135,8 +135,21 @@ that dives reads as land. Shape carries meaning before color does.
   drawing itself. Ink every edge equally and the form goes flat. Floor
   calibration matters: hairlines must stay visible or the drawing reads
   as unfinished, not lost.)
-- [ ] Hands: the hardest subject — one hand five ways (palm, fist,
+- [x] Hands: the hardest subject — one hand five ways (palm, fist,
   pointing, holding, relaxed), construction from the mitten first.
+  (Study 009, 2026-10-14 — a parametric frontal hand: mitten palm, four
+  finger bases on an arc (middle highest, pinky lowest), fingers as tapered
+  tubes over three-segment skeletons with segment ratios 0.36 : 0.24 : 0.20
+  of palm length and length factors index .90 / ring .95 / pinky .70 × middle;
+  curl drawn as foreshortening (cos of cumulative joint angle), which is how
+  a curled finger genuinely reads head-on; fist = knuckle bumps + nail
+  slivers + wrapped thumb; the grip done as a separate side-view model —
+  fingers wrapping a near-vertical handle, thumb opposing. What it taught:
+  the thumb's wrap is the failure point — a diagonal bezier across the
+  curled caps tangles, so brace it against the index side instead; and in
+  the side view the thumb tip must land ON the handle's edge or it floats.
+  Also: a mitten reads as a palm the moment the thumb wedge is a rounded
+  tube rather than a polygon slash.)
 - [ ] Texture in ink: bark, water, cloth — the same pen, three
   different material languages (short choppy strokes vs long flow vs
   broken stipple).
