@@ -150,9 +150,20 @@ that dives reads as land. Shape carries meaning before color does.
   the side view the thumb tip must land ON the handle's edge or it floats.
   Also: a mitten reads as a palm the moment the thumb wedge is a rounded
   tube rather than a polygon slash.)
-- [ ] Texture in ink: bark, water, cloth — the same pen, three
+- [x] Texture in ink: bark, water, cloth — the same pen, three
   different material languages (short choppy strokes vs long flow vs
-  broken stipple).
+  broken stipple). (Study 010, 2026-10-14 — three panels: bark from ~150
+  chops 15–45px mostly vertical + dark tapering crevice wedges (three
+  stacked shrinking strokes) + plate ticks + broken-ring knot; water from
+  38 one-breath sine lines (amp 4–11px) with 28% broken into sparkle
+  gaps, leaf + ripple rings, reflection dash stacks; cloth from nested
+  fold-shadow bands hugging the valleys, 8px weave crosses on the lit
+  ridges, stipple in the valley throats via new Pen.stipple(); plus a
+  stroke-alphabet strip enlarging each signature stroke. What it taught:
+  texture is rhythm, not detail — direction + spacing + weight; the
+  subject barely matters. Ink only describes the dark; light is paper
+  left alone. A drop reads as a drop only while it stays tiny — past
+  ~5px with a ring it turns into an eye.)
 - [ ] One-point perspective: a street or corridor with figures
   shrinking on the rails — construction lines left visible, the way
   students are told to leave them.

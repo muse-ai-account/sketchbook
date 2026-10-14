@@ -360,6 +360,36 @@ class Pen:
             + "".join(lines) + "</g>"
         )
 
+    def stipple(self, clip_d: str, bbox, n: int, size: float = 2.4,
+                color: str = INK, opacity: float = 0.85,
+                seed: int | None = None) -> None:
+        """Seeded dot scatter clipped to the closed path `clip_d`.
+
+        `bbox` is (x0, y0, x1, y1): dots are scattered uniformly inside
+        it and the clip path keeps only the ones on the form. Tone from
+        dot density, never from grey — granulation, shadow stipple,
+        texture tooth. The paper breathes between the dots.
+        Deterministic for a given seed (defaults to the pen's stream).
+        """
+        rng = mulberry(self.rng.randrange(1 << 30) if seed is None else seed)
+        self._clip_n += 1
+        cid = f"clip{self._clip_n}"
+        self.defs.append(f'<clipPath id="{cid}"><path d="{clip_d}"/></clipPath>')
+        x0, y0, x1, y1 = bbox
+        dots = []
+        for _ in range(n):
+            x = rng.uniform(x0, x1)
+            y = rng.uniform(y0, y1)
+            r = size * rng.uniform(0.55, 1.25) / 2.0
+            dots.append(
+                f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" '
+                f'fill="{color}"/>'
+            )
+        self._emit(
+            f'<g clip-path="url(#{cid})" opacity="{opacity}">'
+            + "".join(dots) + "</g>"
+        )
+
     def edge_life(self, pts, presence, width: float = 2.0, color: str = INK,
                   amp: float = 1.4, chunk: int = 5) -> None:
         """Lost-and-found contour: the pen's ink fades in and out along

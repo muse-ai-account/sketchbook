@@ -21,6 +21,7 @@ the drawing is exactly reproducible — like an etching plate.
 | 007 | [The Gaps, Not the Things](studies/study-007.svg) | 2026-10-13 | negative space, evenodd hatch holes, Rubin's vase, paper-cut leaves, keyhole triptych |
 | 008 | [The Edges You Don't Draw](studies/study-008.svg) | 2026-10-13 | lost and found edges, edge_life presence function, eye-closure gaps, presence meter strips, mug/bottle/pear triptych |
 | 009 | [The Hardest Subject](studies/study-009.svg) | 2026-10-14 | hands one hand five ways, mitten construction, knuckle arc, tapered finger tubes, curl as foreshortening, side-view grip |
+| 010 | [Three Material Languages](studies/study-010.svg) | 2026-10-14 | texture in ink: bark chops + dark wedge crevices, water flow lines + sine rhythm, cloth fold bands + weave crosses + valley stipple, stroke alphabet strip |
 
 View the [gallery](index.html) for the pieces with notes.
 
@@ -53,6 +54,10 @@ View the [gallery](index.html) for the pieces with notes.
   callable; the path is chunked into subpaths whose width and opacity
   breathe along the walk — found edges bold, lost edges hairline or
   gone, round caps keeping the chunks merged like wet ink.
+- `Pen.stipple(clip_d, bbox, n, size)` — seeded dot scatter clipped to
+  a form (Study 010): dots scattered uniformly in `bbox`, the clip
+  path keeping only the ones on the form — granulation, shadow
+  stipple, texture tooth. The paper breathes between the dots.
 - Study 004's idiom (no new engine method needed): stacked hatch passes —
   base hatch over the whole form, tighter passes clipped to offset shadow
   ellipses toward the shadow side, cross-hatch only the deepest pass; the
