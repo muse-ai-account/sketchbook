@@ -164,6 +164,19 @@ that dives reads as land. Shape carries meaning before color does.
   subject barely matters. Ink only describes the dark; light is paper
   left alone. A drop reads as a drop only while it stays tiny — past
   ~5px with a ring it turns into an eye.)
-- [ ] One-point perspective: a street or corridor with figures
+- [x] One-point perspective: a street or corridor with figures
   shrinking on the rails — construction lines left visible, the way
-  students are told to leave them.
+  students are told to leave them. (Study 011, 2026-10-15 — drawn from
+  real pinhole projection (sx = VPX + F*X/Z, sy = VPY − F*(Y−EYE)/Z):
+  building fronts as constant-Z rectangles, receding walls, lamps, one
+  walker at 3.5/7/12/20 m shrinking by the honest 1/z; dashed vermilion
+  head/foot rails to the VP left in; the diagonal method (X of a
+  receding ground tile crosses at its true center, horizontal through it
+  is the half-depth line); three lies. What it taught: the horizon is
+  your eye level, always — one VP rules every receding edge, and equal
+  steps shrink by 1/z, never by copying. Engine lesson: pen.poly()'s
+  midpoint smoothing shears one edge of anything rectangular — study-local
+  rect_d() joins jittered corners with straight lines instead.)
+- [ ] Two-point perspective: a corner building, both VPs on the horizon
+- [ ] Reflections: still water as a vertical mirror — the reflection is
+  the subject flipped, compressed, and broken by ripple gaps

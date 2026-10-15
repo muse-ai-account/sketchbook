@@ -22,6 +22,7 @@ the drawing is exactly reproducible — like an etching plate.
 | 008 | [The Edges You Don't Draw](studies/study-008.svg) | 2026-10-13 | lost and found edges, edge_life presence function, eye-closure gaps, presence meter strips, mug/bottle/pear triptych |
 | 009 | [The Hardest Subject](studies/study-009.svg) | 2026-10-14 | hands one hand five ways, mitten construction, knuckle arc, tapered finger tubes, curl as foreshortening, side-view grip |
 | 010 | [Three Material Languages](studies/study-010.svg) | 2026-10-14 | texture in ink: bark chops + dark wedge crevices, water flow lines + sine rhythm, cloth fold bands + weave crosses + valley stipple, stroke alphabet strip |
+| 011 | [The Shrinking Street](studies/study-011.svg) | 2026-10-15 | one-point perspective from real pinhole projection: street with building fronts + receding walls + lamps, one walker at 3.5/7/12/20 m shrinking by 1/z, head/foot rails to the VP left in, diagonal method for half-depth, three lies |
 
 View the [gallery](index.html) for the pieces with notes.
 
